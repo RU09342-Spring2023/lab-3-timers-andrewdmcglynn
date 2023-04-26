@@ -68,8 +68,7 @@ __interrupt void Port_2(void)
         counter = 30000;
     }
     // @TODO When the button is pressed, you can change what the CCR0 Register is for the Timer. You will need to track what speed you should be flashing at.
-    P1OUT ^= BIT0;
-    TB1CCR0 += counter;
+
 }
 
 
@@ -78,6 +77,8 @@ __interrupt void Port_2(void)
 __interrupt void Timer1_B0_ISR(void)
 {
     // @TODO You can toggle the LED Pin in this routine and if adjust your count in CCR0.
+    P1OUT ^= BIT0;
+    TB1CCR0 += counter;
 }
 
 
