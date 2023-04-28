@@ -7,7 +7,7 @@
  *      YOU NEED TO FILL IN THIS AUTHOR BLOCK
  */
 #include <msp430.h>
-int buttonPress = 0;
+int buttonPress = 0; //store button press
 void gpioInit();
 void timerInit();
 
@@ -16,11 +16,12 @@ void main(){
     gpioInit();
     timerInit();
 
-    PM5CTL0 &= ~LOCKLPM5;
+    PM5CTL0 &= ~LOCKLPM5;  // low power mode
     __bis_SR_register(LPM3_bits | GIE);
 }
 
 void gpioInit() {
+    // initialize pins
     P1DIR |= BIT0;
     P1OUT &= ~BIT0;
     P2DIR &= ~BIT3;
@@ -38,6 +39,7 @@ void gpioInit() {
 }
 
 void timerInit() {
+    //set up timer
     TB1CCR0 = 800;
     TB1CTL |= TBSSEL__ACLK + MC_0 + TBCLR;
     TB1CCTL0 |= CAP + CM_3;
@@ -77,12 +79,4 @@ __interrupt void ISR_Port4_S1(void)
     TB0CCR0 = 8192;
     P4IFG &= ~BIT1;
 }
-
-
-
-
-
-
-
-
 
